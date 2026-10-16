@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#F77F00">
+  <title>Interfaz Puente — BancoEstado (Simulación Académica INACAP)</title>
+
+  <!-- Tipografías para la app (Nunito / Nunito Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Estilos del Proyecto -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/interfaz-puente.css">
+  <link rel="stylesheet" href="css/facilitator.css">
+</head>
+<body>
+
+  <!-- Contenedor general para visualización en escritorio -->
+  <div class="app-wrapper">
+    
+    <!-- Barra de utilidad en escritorio -->
+    <header class="desktop-bar">
+      <span>📱 Vista Móvil (390 × 844 px)</span>
+      <button type="button" id="btnToggleFullScreen" aria-label="Cambiar a pantalla completa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        Pantalla Completa
+      </button>
+    </header>
+
+    <!-- Marco del Celular (iPhone 390x844 px) -->
+    <main class="device-frame app-semantic-active" id="appMainContainer">
+
+
+      <!-- Banner de Modo Práctica -->
+      <div class="practice-banner" id="practiceBanner" role="status">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Estás practicando: no se envía dinero</span>
+      </div>
+
+      <!-- Contenedor de Pantallas -->
+      <div class="screen-container">
+
+        <!-- ================= PANTALLA 1: INICIO ================= -->
+        <section class="screen-view is-active" id="view-home" aria-label="Inicio">
+          <div class="scroll-area">
+            
+            <!-- Cabecera Naranja BancoEstado -->
+            <header class="be-top-header">
+              <div class="be-brand">
+                <span class="be-logo-symbol">B</span>
+                <span class="be-brand-title">BancoEstado</span>
+              </div>
+              <div class="be-header-actions">
+                <button class="btn-header-round" aria-label="Buscar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></button>
+                <button class="btn-header-round" aria-label="Notificaciones"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+              </div>
+            </header>
+
+            <!-- Tarjeta CuentaRUT de Elena Retamales -->
+            <div class="account-cards-wrap">
+              <article class="account-card" id="cardCuentaRut">
+                <div class="account-card-header">
+                  <div class="account-card-type">
+                    <b>CuentaRUT</b> N° 0007845129
+                  </div>
+                  <span style="font-size:14px;color:var(--muted)">Titular: Elena Retamales</span>
+                </div>
+                
+                <div class="account-balance-row">
+                  <div class="account-balance" data-bind="user-balance">$350.000</div>
+                  <div class="account-label">
+                    <span class="term-technical">Saldo disponible</span>
+                    <span class="term-simplified">Dinero que tienes listo para usar</span>
+                    <button type="button" class="semantic-translation-badge" onclick="window.interfazPuente.showTermExplanation('saldo_disponible')" title="¿Qué significa Saldo disponible?" aria-label="Significado de Saldo disponible">?</button>
+                  </div>
+                </div>
+
+                <div class="account-actions-row">
+                  <button type="button" class="btn-pill secondary" onclick="alert('Consulta de movimientos demostrativa.')">Movimientos</button>
+                  <button type="button" class="btn-pill secondary" onclick="alert('Cartolas de cuenta demostrativas.')">Cartolas</button>
+                </div>
+              </article>
+
+              <!-- Bloque Destacado: Transferir Dinero -->
+              <section class="quick-transfer-box" id="boxQuickTransferAction">
+                <h2>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 8h13l-3.5-3.5M19 16H6l3.5 3.5"/></svg>
+                  <span class="term-technical">Transferencias</span>
+                  <span class="term-simplified">¿Deseas enviar dinero?</span>
+                </h2>
+                <p class="semantic-helper-text">Envía dinero a tus familiares o amigos desde tu CuentaRUT con respaldo en cada paso.</p>
+                <button type="button" class="btn-cta-big" id="btnQuickTransfer">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  Transferir dinero
+                </button>
+              </section>
+
+              <!-- Tarjetas y Otros Productos -->
+              <h3 class="section-heading">Tus tarjetas asociadas</h3>
+              <div class="mini-card">
+                <div class="mini-card-info">
+                  <b>Tarjeta Débito CuentaRUT</b>
+                  <span>**** **** **** 5129 · Visa Débito</span>
+                </div>
+                <span style="font-weight:900;color:var(--indigo)">Activa</span>
+              </div>
+
+              <h3 class="section-heading">Ahorros</h3>
+              <div class="mini-card">
+                <div class="mini-card-info">
+                  <b>Cuenta Ahorro Vivienda</b>
+                  <span>Saldo: $480.200</span>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Barra de navegación inferior -->
+          <nav class="bottom-nav" aria-label="Navegación principal">
+            <button type="button" class="nav-tab active" id="navBtnHome">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <span>Inicio</span>
+            </button>
+            <button type="button" class="nav-tab" id="navBtnTransfer">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h13l-3.5-3.5M19 16H6l3.5 3.5"/></svg>
+              <span>Transferir</span>
+            </button>
+            <button type="button" class="nav-tab" onclick="alert('Sección demostrativa.')">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Seguridad</span>
+            </button>
+            <button type="button" class="nav-tab" onclick="alert('Sección demostrativa.')">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              <span>Más</span>
+            </button>
+          </nav>
+        </section>
+
+        <!-- ================= PANTALLA 2: DESTINATARIO ================= -->
+        <section class="screen-view" id="view-recipient" aria-label="Elegir destinatario">
+          <header class="view-header">
+            <button type="button" class="btn-back" id="btnBackFromRecipient" aria-label="Volver al inicio">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <h1>
+              <span class="term-technical">Destinatario</span>
+              <span class="term-simplified">¿A quién le quieres enviar el dinero?</span>
+            </h1>
+          </header>
+
+          <div class="scroll-area form-step-container">
+            
+            <div class="step-indicator-bar" aria-hidden="true">
+              <div class="step-bullet active"></div>
+              <div class="step-bullet"></div>
+              <div class="step-bullet"></div>
+            </div>
+
+            <!-- Botón Agregar Nuevo Centrado Arriba del Buscador -->
+            <div class="add-new-recipient-header-wrap">
+              <button type="button" class="btn-add-new-recipient-top" id="btnGoToNewRecipientScreen">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Agregar nuevo</span>
+              </button>
+            </div>
+
+            <!-- Buscador Superior "¿A quién quieres transferir?" -->
+            <div class="recipient-search-box">
+              <label for="recipientSearchInput">
+                <span class="term-technical">Buscar destinatario</span>
+                <span class="term-simplified">¿A quién quieres transferir?</span>
+              </label>
+              <div class="recipient-search-input-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" class="recipient-search-input" id="recipientSearchInput" placeholder="Buscar por nombre o RUT...">
+              </div>
+            </div>
+
+            <!-- Pestañas de contactos (Guardados y Favoritos) -->
+            <div class="recipient-tabs" role="tablist">
+              <button type="button" class="recipient-tab-btn active" id="tabRecipientSaved" role="tab">Guardados</button>
+              <button type="button" class="recipient-tab-btn" id="tabRecipientFavorites" role="tab">Favoritos</button>
+            </div>
+
+            <!-- Panel de Contactos Guardados -->
+            <div id="paneRecipientSaved">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <span class="semantic-helper-text" style="font-weight:800;color:var(--muted)">Contactos habituales de Elena:</span>
+                <button type="button" class="semantic-translation-badge" onclick="window.interfazPuente.showTermExplanation('destinatario')" title="¿Qué significa Destinatario?" aria-label="Significado de Destinatario">?</button>
+              </div>
+
+              <!-- Contacto Rosa Pérez (Destinatario clave para la prueba) -->
+              <div class="contact-item selected" id="frequentContactRosa" tabindex="0" role="button">
+                <div class="contact-avatar">R</div>
+                <div class="contact-details">
+                  <div class="contact-name">Rosa Pérez Sepúlveda</div>
+                  <div class="contact-bank-info">Banco de Chile · Cta. Corriente</div>
+                  <div style="font-size:13px;color:#64748B">RUT 12.876.543-2</div>
+                </div>
+                <button type="button" class="btn-speak-section" data-speak="Destinatario frecuente: Rosa Pérez Sepúlveda, cuenta corriente en Banco de Chile. Toca para seleccionarla." aria-label="Escuchar datos de Rosa Pérez" title="Escuchar">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </button>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" style="margin-left:4px"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+
+              <!-- Contacto Pedro Retamales (Hijo) -->
+              <div class="contact-item" id="frequentContactPedro" tabindex="0" role="button" onclick="alert('Para esta prueba usaremos a Rosa Pérez Sepúlveda.')">
+                <div class="contact-avatar">P</div>
+                <div class="contact-details">
+                  <div class="contact-name">Pedro Retamales (Hijo)</div>
+                  <div class="contact-bank-info">BancoEstado · CuentaRUT</div>
+                  <div style="font-size:13px;color:#64748B">RUT 18.345.678-4</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel de Favoritos -->
+            <div id="paneRecipientFavorites" class="hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <span class="semantic-helper-text" style="font-weight:800;color:var(--muted)">Tus contactos favoritos:</span>
+                <span class="semantic-helper-text" style="font-size:13px;color:var(--teal);font-weight:800">⭐ Destacados</span>
+              </div>
+              <div class="contact-item" id="favContactRosa" tabindex="0" role="button">
+                <div class="contact-avatar" style="background:#FEF3C7;color:#D97706">⭐</div>
+                <div class="contact-details">
+                  <div class="contact-name">Rosa Pérez Sepúlveda</div>
+                  <div class="contact-bank-info">Banco de Chile · Cta. Corriente</div>
+                  <div style="font-size:13px;color:#64748B">RUT 12.876.543-2</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones Inferiores para Guardados / Favoritos -->
+            <div class="form-bottom-actions" id="recipientSavedBottomActions">
+              <button type="button" class="btn-cta-big btn-cta-full-width" id="btnContinueRecipientSaved">
+                Continuar
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button type="button" class="btn-cancel-full-width" id="btnCancelRecipientSaved">
+                Cancelar
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= PANTALLA INDEPENDIENTE: AGREGAR NUEVO DESTINATARIO ================= -->
+        <section class="screen-view" id="view-new-recipient" aria-label="Agregar nuevo destinatario">
+          <header class="view-header">
+            <button type="button" class="btn-back" id="btnBackFromNewRecipient" aria-label="Volver a lista de destinatarios">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <h1>
+              <span class="term-technical">Nuevo destinatario</span>
+              <span class="term-simplified">Anotar los datos de quien recibe</span>
+            </h1>
+          </header>
+
+          <div class="scroll-area form-step-container">
+            
+            <div class="step-indicator-bar" aria-hidden="true">
+              <div class="step-bullet active"></div>
+              <div class="step-bullet"></div>
+              <div class="step-bullet"></div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+              <span style="font-weight:900;color:var(--navy);font-size:16px">
+                <span class="term-technical">NUEVO DESTINATARIO</span>
+                <span class="term-simplified">AGREGAR NUEVO DESTINATARIO</span>
+              </span>
+              <button type="button" class="semantic-translation-badge" onclick="window.interfazPuente.showTermExplanation('inscribir_destinatario')" title="¿Qué significa Inscribir destinatario?" aria-label="Significado de Inscribir destinatario">?</button>
+            </div>
+
+            <!-- ETAPA A: SOLO INGRESO DE RUT CON TECLADO NUMÉRICO Y DICTADO POR VOZ -->
+            <div id="newRecipientStepRut">
+              <div class="form-group" id="groupRecipientRut">
+                <label class="form-label" for="newRecipientRut" style="flex-direction:column;align-items:flex-start;gap:2px">
+                  <span style="display:flex;justify-content:space-between;width:100%;align-items:center">
+                    <span style="font-weight:900;color:var(--ink);font-size:17px">
+                      <span class="term-technical">RUT</span>
+                      <span class="term-simplified">Ingresa el RUT</span>
+                    </span>
+                    <button type="button" class="btn-speak-section" data-speak="Ingresa el RUT de quien recibe. Puedes escribirlo con los números o tocar el micrófono para dictarlo." aria-label="Escuchar explicación" title="Escuchar">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </button>
+                  </span>
+                  <span class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted)">RUT de la persona que recibirá el dinero</span>
+                </label>
+                
+                <div style="position:relative;display:flex;align-items:center">
+                  <input type="text" class="form-input" id="newRecipientRut" placeholder="Ej: 15678910K (automático)" inputmode="numeric" style="padding-right:54px;font-size:20px;font-weight:800;letter-spacing:1px">
+                  <button type="button" id="btnVoiceDictateRut" aria-label="Dictar RUT por voz" title="Dictar RUT por voz" style="position:absolute;right:8px;width:40px;height:40px;border-radius:50%;background:var(--teal-light);border:1.5px solid var(--teal);color:var(--teal);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                  </button>
+                </div>
+                <div id="rutVoiceFeedback" style="font-size:13px;color:var(--teal);font-weight:800;margin-top:6px;display:none">🎙️ Escuchando... di tu RUT (ej: quince millones seiscientos...)</div>
+              </div>
+
+              <!-- Teclado Numérico en Pantalla Explayado -->
+              <div style="margin-top:16px;text-align:center">
+                <span class="semantic-helper-text" style="font-size:13px;font-weight:800;color:var(--muted)">Toca los números para escribir el RUT:</span>
+                <div class="virtual-num-keypad" id="rutVirtualKeypad">
+                  <button type="button" class="btn-keypad-digit" data-key="1">1</button>
+                  <button type="button" class="btn-keypad-digit" data-key="2">2</button>
+                  <button type="button" class="btn-keypad-digit" data-key="3">3</button>
+                  <button type="button" class="btn-keypad-digit" data-key="4">4</button>
+                  <button type="button" class="btn-keypad-digit" data-key="5">5</button>
+                  <button type="button" class="btn-keypad-digit" data-key="6">6</button>
+                  <button type="button" class="btn-keypad-digit" data-key="7">7</button>
+                  <button type="button" class="btn-keypad-digit" data-key="8">8</button>
+                  <button type="button" class="btn-keypad-digit" data-key="9">9</button>
+                  <button type="button" class="btn-keypad-digit btn-keypad-action" data-key="K">K</button>
+                  <button type="button" class="btn-keypad-digit" data-key="0">0</button>
+                  <button type="button" class="btn-keypad-digit btn-keypad-action" data-key="BACK" aria-label="Borrar número">⌫</button>
+                </div>
+              </div>
+
+              <div class="form-bottom-actions" style="margin-top:20px">
+                <button type="button" class="btn-cta-big btn-cta-full-width" id="btnConfirmRutNext">
+                  <span class="term-technical">Continuar</span>
+                  <span class="term-simplified">Continuar a datos del destinatario</span>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button type="button" class="btn-cancel-full-width" id="btnCancelAddRecipientRut">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+
+            <!-- ETAPA B: FORMULARIO COMPLETO TRAS RELLENAR EL RUT -->
+            <div id="newRecipientStepDetails" class="hidden">
+              <!-- 2. Nombre y Apellido -->
+              <div class="form-group" id="groupRecipientName">
+                <label class="form-label" for="newRecipientName" style="flex-direction:column;align-items:flex-start;gap:2px">
+                  <span style="display:flex;justify-content:space-between;width:100%;align-items:center">
+                    <span style="font-weight:900;color:var(--ink)">Nombre y apellido</span>
+                    <button type="button" class="btn-speak-section" data-speak="Nombre y apellido de quien recibe." aria-label="Escuchar explicación" title="Escuchar">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </button>
+                  </span>
+                  <span class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted)">Nombre completo de quien recibe</span>
+                </label>
+                <input type="text" class="form-input" id="newRecipientName" placeholder="Ej: Carmen Gloria Morales">
+              </div>
+
+              <!-- 3. Banco -->
+              <div class="form-group" id="groupRecipientBank">
+                <label class="form-label" for="newRecipientBank" style="flex-direction:column;align-items:flex-start;gap:2px">
+                  <span style="display:flex;justify-content:space-between;width:100%;align-items:center">
+                    <span style="font-weight:900;color:var(--ink)">Banco</span>
+                    <button type="button" class="btn-speak-section" data-speak="Banco de quien recibe." aria-label="Escuchar explicación" title="Escuchar">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </button>
+                  </span>
+                  <span class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted)">Banco donde tiene su cuenta</span>
+                </label>
+                <select class="form-select" id="newRecipientBank">
+                  <option value="BancoEstado">BancoEstado</option>
+                  <option value="Banco de Chile" selected>Banco de Chile / Edwards</option>
+                  <option value="Banco Santander">Banco Santander</option>
+                  <option value="BCI">BCI / Mach</option>
+                  <option value="Scotiabank">Scotiabank</option>
+                  <option value="Itaú">Itaú</option>
+                  <option value="Banco Falabella">Banco Falabella</option>
+                </select>
+              </div>
+
+              <!-- 4. Tipo de Cuenta con 4 Botones: CuentaRut, Corriente, Vista, Ahorro -->
+              <div class="form-group" id="groupRecipientType">
+                <label class="form-label" style="flex-direction:column;align-items:flex-start;gap:2px">
+                  <span style="display:flex;justify-content:space-between;width:100%;align-items:center">
+                    <span style="font-weight:900;color:var(--ink)">Tipo de cuenta</span>
+                    <button type="button" class="btn-speak-section" data-speak="Tipo de cuenta. Toca el botón de CuentaRut, Corriente, Vista o Ahorro." aria-label="Escuchar explicación" title="Escuchar">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </button>
+                  </span>
+                  <span class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted)">Elige una de las opciones:</span>
+                </label>
+                
+                <div class="account-type-grid" id="accountTypePillGrid">
+                  <button type="button" class="btn-account-type-option" data-type="CuentaRUT">CuentaRut</button>
+                  <button type="button" class="btn-account-type-option selected" data-type="Cuenta Corriente">Corriente</button>
+                  <button type="button" class="btn-account-type-option" data-type="Cuenta Vista">Vista</button>
+                  <button type="button" class="btn-account-type-option" data-type="Cuenta de Ahorro">Ahorro</button>
+                </div>
+                <input type="hidden" id="newRecipientType" value="Cuenta Corriente">
+              </div>
+
+              <!-- 5. Número de Cuenta -->
+              <div class="form-group" id="groupRecipientNum">
+                <label class="form-label" for="newRecipientNum" style="flex-direction:column;align-items:flex-start;gap:2px">
+                  <span style="display:flex;justify-content:space-between;width:100%;align-items:center">
+                    <span style="font-weight:900;color:var(--ink)">Número de cuenta</span>
+                    <button type="button" class="btn-speak-section" data-speak="Número de cuenta de quien recibe." aria-label="Escuchar explicación" title="Escuchar">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </button>
+                  </span>
+                  <span class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted)">Número de la cuenta bancaria</span>
+                </label>
+                <input type="text" class="form-input" id="newRecipientNum" placeholder="Ej: 00-128-45920-01" inputmode="numeric">
+              </div>
+
+              <!-- 6. Correo (opcional) -->
+              <div class="form-group" id="groupRecipientEmail">
+                <label class="form-label" for="newRecipientEmail" style="flex-direction:column;align-items:flex-start;gap:2px">
+                  <span style="display:flex;justify-content:space-between;width:100%;align-items:center">
+                    <span style="font-weight:900;color:var(--ink)">
+                      <span class="term-technical">Correo electrónico</span>
+                      <span class="term-simplified">Correo electrónico (opcional)</span>
+                    </span>
+                    <button type="button" class="btn-speak-section" data-speak="Correo de quien recibe, opcional. No es obligatorio para continuar." aria-label="Escuchar explicación" title="Escuchar">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    </button>
+                  </span>
+                  <span class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted)">Solo si quieres enviarle comprobante</span>
+                </label>
+                <input type="email" class="form-input" id="newRecipientEmail" placeholder="Ej: persona@correo.cl">
+              </div>
+
+              <div class="form-bottom-actions">
+                <button type="button" class="btn-cta-big btn-cta-full-width" id="btnContinueRecipient">
+                  <span class="term-technical">Continuar</span>
+                  <span class="term-simplified">Continuar al monto</span>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button type="button" class="btn-cancel-full-width" id="btnCancelAddRecipientForm">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= PANTALLA 3: INGRESAR MONTO ================= -->
+        <section class="screen-view" id="view-amount" aria-label="Ingresar monto">
+          <header class="view-header">
+            <button type="button" class="btn-back" id="btnBackFromAmount" aria-label="Volver a destinatario">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <h1>
+              <span class="term-technical">Ingresar Monto</span>
+              <span class="term-simplified">¿Cuánto dinero quieres enviar?</span>
+            </h1>
+          </header>
+
+          <div class="scroll-area form-step-container">
+            
+            <div class="step-indicator-bar" aria-hidden="true">
+              <div class="step-bullet completed"></div>
+              <div class="step-bullet active"></div>
+              <div class="step-bullet"></div>
+            </div>
+
+            <!-- Cuenta de Cargo / Origen -->
+            <div class="mini-card" style="margin-bottom:16px;background:var(--indigo-soft);border-color:#C3D4FB">
+              <div class="mini-card-info">
+                <span style="color:var(--indigo);font-weight:800">
+                  <span class="term-technical">Cuenta de cargo</span>
+                  <span class="term-simplified">¿De qué cuenta sale tu dinero?</span>
+                </span>
+                <b>CuentaRUT de Elena</b>
+                <div style="font-size:15px;color:var(--ink);margin-top:2px">Saldo disponible: <strong data-bind="user-balance">$350.000</strong></div>
+              </div>
+              <button type="button" class="semantic-translation-badge" onclick="window.interfazPuente.showTermExplanation('cuenta_cargo')" title="¿Qué significa Cuenta de cargo?" aria-label="Significado de Cuenta de cargo">?</button>
+            </div>
+
+            <!-- Input de Monto Grande con opción de escribir o elegir montos sugeridos -->
+            <div class="amount-display-box" id="amountBox" tabindex="0">
+              <label for="inputAmount" style="font-size:16px;font-weight:800;color:var(--muted);display:flex;align-items:center;justify-content:center;margin-bottom:8px">
+                <span>
+                  <span class="term-technical">Monto</span>
+                  <span class="term-simplified">Escribe el monto o elige un botón</span>
+                </span>
+                <button type="button" class="btn-speak-section" data-speak="Monto a transferir. Puedes tocar la casilla con borde para escribir el monto exacto con los números de tu teléfono, o tocar uno de los montos sugeridos abajo. El monto máximo permitido para transferir es de 200.000 pesos." aria-label="Escuchar explicación del monto" title="Escuchar qué rellenar">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                </button>
+              </label>
+              
+              <!-- Input editable directamente donde se puede escribir cualquier monto -->
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;margin:6px 0 10px">
+                <input type="text" class="amount-input-big" id="inputAmount" value="$0" inputmode="numeric" placeholder="$0" aria-label="Escribe aquí el monto en pesos">
+                <span style="font-size:13px;font-weight:800;color:var(--indigo);margin-top:6px">Máximo permitido: $200.000</span>
+              </div>
+              <div class="semantic-helper-text" style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px">
+                ✏️ Toca la casilla con borde para escribir el monto, o elige una sugerencia:
+              </div>
+              
+              <!-- Píldoras de Monto Rápido -->
+              <div class="quick-amounts">
+                <button type="button" class="btn-quick-amount" data-amount="10000">$10.000</button>
+                <button type="button" class="btn-quick-amount" data-amount="30000">$30.000</button>
+                <button type="button" class="btn-quick-amount" data-amount="50000">$50.000</button>
+                <button type="button" class="btn-quick-amount" data-amount="100000">$100.000</button>
+              </div>
+
+              <!-- Mensaje de Error si supera saldo -->
+              <div class="form-error-msg" id="amountErrorBox" style="margin-top:12px;font-size:16px"></div>
+            </div>
+
+            <!-- Campo de Mensaje (anteriormente Glosa) -->
+            <div class="form-group" id="groupGlosa" style="margin-top:20px">
+              <label class="form-label" for="inputGlosa">
+                <span>
+                  <span class="term-technical" style="font-weight:900;color:var(--ink);font-size:17px">Glosa</span>
+                  <span class="term-simplified" style="font-weight:900;color:var(--ink);font-size:17px">Mensaje (opcional para quien recibe)</span>
+                </span>
+                <span style="display:inline-flex;align-items:center">
+                  <button type="button" class="btn-speak-section" data-speak="Mensaje opcional para la otra persona. Es voluntario, puedes escribir para qué es el dinero, como regalo o almuerzo." aria-label="Escuchar explicación del mensaje" title="Escuchar qué rellenar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                  </button>
+                </span>
+              </label>
+              <input type="text" class="form-input" id="inputGlosa" placeholder="Ej: Regalo de cumpleaños o Pago de almuerzo">
+              <p class="form-helper-text semantic-helper-text">La otra persona podrá leer este mensaje cuando reciba la transferencia.</p>
+            </div>
+
+            <!-- Botón Inferior: Igual que el botón Continuar anterior (centrado, extendido a los márgenes) -->
+            <div class="form-bottom-actions" style="margin-top:24px">
+              <button type="button" class="btn-cta-big btn-cta-full-width" id="btnContinueAmount">
+                <span class="term-technical">Continuar</span>
+                <span class="term-simplified">Revisar datos</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <button type="button" class="btn-cancel-full-width" id="btnCancelAmount">
+                Cancelar
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= PANTALLA 4: RESUMEN SEGURO (A/B) ================= -->
+        <section class="screen-view" id="view-summary" aria-label="Confirmar transferencia">
+          <header class="view-header">
+            <button type="button" class="btn-back" onclick="window.appRouter.goTo('amount')" aria-label="Volver a monto">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <h1 id="safeSummaryTitle">
+              <span class="term-technical">Confirmar transferencia</span>
+              <span class="term-simplified">Resumen Seguro</span>
+            </h1>
+          </header>
+
+          <div class="scroll-area form-step-container">
+            
+            <div class="step-indicator-bar" aria-hidden="true">
+              <div class="step-bullet completed"></div>
+              <div class="step-bullet completed"></div>
+              <div class="step-bullet active"></div>
+            </div>
+
+            <!-- Tarjeta Principal del Resumen Seguro -->
+            <article class="safe-summary-card" id="safeSummaryCard">
+              <div class="safe-summary-header">
+                <div class="safe-summary-icon">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+                <div style="flex:1">
+                  <h2 class="safe-summary-title">
+                    <span class="term-technical">Resumen de la transferencia</span>
+                    <span class="term-simplified">Lee esto antes de confirmar</span>
+                  </h2>
+                  <span class="semantic-helper-text" style="font-size:14px;color:var(--muted)">Verificación protegida</span>
+                </div>
+                <!-- Único botón para escuchar lo que dice la pantalla -->
+                <button type="button" class="btn-speak-section" id="btnSpeakSummaryCard" aria-label="Escuchar resumen de la pantalla" title="Escuchar">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                </button>
+              </div>
+
+              <!-- Microcopy determinista requerido por el enunciado -->
+              <div class="safe-summary-body" id="safeSummaryText">
+                Vas a enviar <strong>$50.000</strong> a <strong>Rosa Pérez Sepúlveda</strong>, a su cuenta en <strong>Banco de Chile</strong>.<br><br>
+                Una vez enviado, <strong>no se puede deshacer</strong>.
+              </div>
+
+              <!-- Aviso de advertencia de irreversibilidad -->
+              <div class="safe-summary-warning semantic-helper-text">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex:none"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Por tu seguridad: revisa bien el monto y el nombre antes de autorizar.</span>
+              </div>
+
+              <!-- Alerta si se inyectó el error de $500.000 -->
+              <div id="summaryBalanceWarning" class="form-error-msg hidden" style="font-size:16px;margin-bottom:14px"></div>
+
+              <!-- Autorización traducida a lenguaje claro (Hallazgo E6) -->
+              <div style="margin-top:16px">
+                <span style="display:block;font-size:14px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Autorizar transferencia con:</span>
+                <div class="safe-summary-actions">
+                  <button type="button" class="btn-confirm-send" id="btnConfirmSummary" style="font-size:17px">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zM9 7a3 3 0 0 1 6 0v3H9V7z"/></svg>
+                    <span class="term-technical">Autorizar con Clave</span>
+                    <span class="term-simplified">Ingresar clave de 6 números</span>
+                  </button>
+                  <button type="button" class="btn-pill secondary" id="btnAuthBiometric" style="min-height:54px;font-size:16px;border-width:2px" onclick="alert('Reconociendo rostro con la cámara...')">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/><path d="M9 9h.01M15 9h.01"/></svg>
+                    Reconocer mi rostro (cámara)
+                  </button>
+                  <button type="button" class="btn-cancel-review" id="btnReviewSummary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M11 17l-5-5 5-5M18 12H6"/></svg>
+                    Cancelar y revisar
+                  </button>
+                </div>
+              </div>
+
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ================= PANTALLA 5: COMPROBANTE FINAL ================= -->
+        <section class="screen-view" id="view-receipt" aria-label="Comprobante de transferencia">
+          <div class="scroll-area form-step-container" style="padding-top:24px">
+            
+            <article class="receipt-card">
+              <div class="receipt-icon-circle">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+
+              <h2 style="font-size:23px;font-weight:900;text-align:center;color:var(--navy);margin-bottom:4px">
+                ¡Transferencia Exitosa!
+              </h2>
+              <p style="text-align:center;color:var(--muted);font-size:15px;margin-bottom:20px">
+                Tu dinero fue enviado correctamente
+              </p>
+
+              <div class="receipt-row">
+                <span class="label">Monto transferido</span>
+                <span class="value" id="receiptAmount" style="color:var(--orange);font-size:22px">$50.000</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="label">Destinatario</span>
+                <span class="value" id="receiptRecipientName">Rosa Pérez Sepúlveda</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="label">Cuenta de destino</span>
+                <span class="value" id="receiptRecipientDetails" style="font-size:14px">Banco de Chile · Cta. Corriente</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="label">Cuenta de origen</span>
+                <span class="value">CuentaRUT 0007845129</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="label">Fecha y hora</span>
+                <span class="value" id="receiptDate">15/10/2026</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="label">N° de operación</span>
+                <span class="value" id="receiptOpNumber">84592019</span>
+              </div>
+            </article>
+
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <button type="button" class="btn-pill secondary" id="btnShareReceipt" style="min-height:52px;font-size:17px">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                Compartir comprobante
+              </button>
+              <button type="button" class="btn-cta-big" id="btnExitToHome">
+                Volver al inicio
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ================= MODAL CLAVE DINÁMICA CON TABLERO NUMÉRICO ================= -->
+      <div class="security-modal-overlay" id="securityModalOverlay" role="dialog" aria-modal="true" aria-label="Confirmación con clave">
+        <div class="security-modal-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <h2 style="font-size:20px;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:10px;margin:0">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Ingresa tu clave de 6 números</span>
+            </h2>
+            <button type="button" class="btn-speak-section" data-speak="Ingresa tu clave de 6 números usando los números en pantalla. Para la prueba escribe uno, dos, tres, cuatro, cinco, seis." aria-label="Escuchar instrucciones de clave" title="Escuchar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            </button>
+          </div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:10px">
+            Toca los números abajo para ingresar los 6 dígitos.
+          </p>
+
+          <!-- Aviso pedagógico requerido -->
+          <div class="security-pedagogic-warning" style="margin-bottom:12px;padding:10px 12px;font-size:14px">
+            🛡️ <strong>Simulación pedagógica:</strong> Escribe el código de prueba <strong>123456</strong>.
+          </div>
+
+          <!-- Casillas de 6 dígitos -->
+          <div class="security-code-inputs" id="securityCodeBox">
+            <input type="text" class="security-digit" maxlength="1" readonly value="">
+            <input type="text" class="security-digit" maxlength="1" readonly value="">
+            <input type="text" class="security-digit" maxlength="1" readonly value="">
+            <input type="text" class="security-digit" maxlength="1" readonly value="">
+            <input type="text" class="security-digit" maxlength="1" readonly value="">
+            <input type="text" class="security-digit" maxlength="1" readonly value="">
+          </div>
+
+          <!-- Tablero numérico en pantalla (0-9 y borrar, sin la K) -->
+          <div class="virtual-num-keypad" id="authVirtualKeypad" style="margin:12px auto 16px">
+            <button type="button" class="btn-keypad-digit" data-key="1">1</button>
+            <button type="button" class="btn-keypad-digit" data-key="2">2</button>
+            <button type="button" class="btn-keypad-digit" data-key="3">3</button>
+            <button type="button" class="btn-keypad-digit" data-key="4">4</button>
+            <button type="button" class="btn-keypad-digit" data-key="5">5</button>
+            <button type="button" class="btn-keypad-digit" data-key="6">6</button>
+            <button type="button" class="btn-keypad-digit" data-key="7">7</button>
+            <button type="button" class="btn-keypad-digit" data-key="8">8</button>
+            <button type="button" class="btn-keypad-digit" data-key="9">9</button>
+            <div style="min-height:54px"></div>
+            <button type="button" class="btn-keypad-digit" data-key="0">0</button>
+            <button type="button" class="btn-keypad-digit btn-keypad-action" data-key="BACK" aria-label="Borrar número">⌫</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button type="button" class="btn-cta-big btn-cta-full-width" id="btnAuthorizeTransfer">
+              Autorizar y transferir
+            </button>
+            <button type="button" class="btn-cancel-full-width" id="btnCancelAuth">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= MODAL EXPLICATIVO DE TÉRMINO (GLOSARIO) ================= -->
+      <div class="term-modal-overlay" id="termModalOverlay" role="dialog" aria-modal="true">
+        <div class="term-modal-card">
+          <h3 class="term-modal-title" id="termModalTitle">Término bancario</h3>
+          <div class="term-modal-subtitle" id="termModalSubtitle">En lenguaje cotidiano</div>
+          <div class="term-modal-meaning" id="termModalMeaning">Explicación simple.</div>
+          <div class="term-modal-example" id="termModalExample">Ejemplo de uso.</div>
+          <div class="term-modal-btns">
+            <button type="button" class="btn-listen-term" id="btnListenTermAudio" onclick="window.puenteSpeech.speak(document.getElementById('termModalMeaning').textContent)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              Escuchar
+            </button>
+            <button type="button" class="btn-close-term" id="btnCloseTermModal">
+              Entendido
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= BIENVENIDA / ONBOARDING (5 SEGUNDOS) ================= -->
+      <div class="puente-onboarding-overlay" id="puenteOnboardingOverlay" role="dialog" aria-modal="true">
+        <div class="puente-onboarding-card">
+          <span class="onboarding-badge">BIENVENIDA ELENA</span>
+          <h2>Tu pasamanos digital está listo para acompañarte</h2>
+          <p>
+            Creamos el botón verde <strong>"¿Te ayudo?"</strong> para que hagas tus transferencias sola y sin miedo. Si tienes dudas con alguna palabra o no sabes dónde continuar, tócalo en cualquier momento.
+          </p>
+          <button type="button" id="btnDismissOnboarding">
+            Comenzar con confianza
+          </button>
+        </div>
+      </div>
+
+      <!-- Backdrop transparente para cerrar el menú del widget al tocar afuera -->
+      <div class="puente-widget-backdrop" id="puenteWidgetBackdrop"></div>
+
+      <!-- ================= WIDGET INTERFAZ PUENTE (BOTÓN FLOTANTE) ================= -->
+      <div class="puente-fab-container" id="puenteFabContainer">
+        
+        <!-- Burbuja de bienvenida/oferta de ayuda (Hallazgo E1) -->
+        <div class="inactivity-offer-bubble" id="inactivityOfferBubble">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px">
+            <b style="font-size:17px;color:var(--navy);font-weight:900">¡Hola! ¿Te ayudo?</b>
+            <button type="button" id="btnOfferCloseX" aria-label="Cerrar mensaje" title="Cerrar mensaje" style="width:28px;height:28px;border-radius:50%;background:#F1F5F9;border:1px solid #CBD5E1;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <p style="font-size:15px;line-height:1.35;margin-bottom:12px;color:var(--ink)">
+            Te guiaré paso a paso para transferir sin errores.
+          </p>
+          <div class="inactivity-offer-btns">
+            <button type="button" class="btn-offer-yes" id="btnOfferYes" style="font-size:15px;font-weight:900">Sí, muéstrame</button>
+            <button type="button" class="btn-offer-no" id="btnOfferNo" style="font-size:14px">Ahora no</button>
+          </div>
+        </div>
+
+        <!-- Menú emergente de 3 botones que se deslizan hacia arriba del Widget -->
+        <div class="puente-widget-menu" id="puenteWidgetMenu" role="menu" aria-label="Opciones del Widget">
+          <!-- 1. Escuchar Pantalla -->
+          <button type="button" class="btn-widget-action" id="btnWidgetSpeech" role="menuitem">
+            <div class="btn-widget-icon" style="background:#FEE2E2;color:#DC2626">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </div>
+            <span class="btn-widget-text">Escuchar Pantalla</span>
+          </button>
+
+          <!-- 2. Modo tutorial -->
+          <button type="button" class="btn-widget-action" id="btnWidgetTutorial" role="menuitem">
+            <div class="btn-widget-icon" style="background:#FEF3C7;color:#D97706">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            </div>
+            <span class="btn-widget-text">Modo tutorial</span>
+          </button>
+
+          <!-- 3. Lenguaje Simple -->
+          <button type="button" class="btn-widget-action" id="btnWidgetLanguage" role="menuitem">
+            <div class="btn-widget-icon" style="background:#E0F2FE;color:#0284C7">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+            </div>
+            <span class="btn-widget-text">Lenguaje Simple</span>
+            <span class="btn-widget-badge" id="badgeWidgetLanguage">Activo</span>
+          </button>
+        </div>
+
+        <!-- Botón Flotante Principal (Widget) -->
+        <button type="button" class="puente-fab-btn" id="puenteFabBtn" aria-label="Widget de ayuda" title="Widget de ayuda">
+          <span class="puente-fab-icon" id="puenteFabIcon">
+            <span class="icon-open fab-question-mark" aria-hidden="true">?</span>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </span>
+        </button>
+      </div>
+
+
+      <!-- ================= FOCO DINÁMICO (SPOTLIGHT 85% PASO A PASO) ================= -->
+      <div class="dynamic-focus-overlay" id="dynamicFocusOverlay" aria-hidden="true"></div>
+
+      <!-- Tarjeta flotante explicativa del paso a paso -->
+      <div class="spotlight-guide-card" id="spotlightGuideCard">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:900;color:var(--mint);background:var(--navy);padding:3px 10px;border-radius:8px" id="spotlightStepBadge">PASO 1</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <button type="button" class="btn-spotlight-voice" id="btnSpotlightVoice" aria-label="Escuchar explicación de este paso" title="Toca para que la IA lea este paso">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              <span style="font-size:13px;font-weight:800;margin-left:4px">Escuchar</span>
+            </button>
+            <button type="button" class="btn-close-spotlight-x" id="btnSpotlightCloseX" aria-label="Cerrar mensaje de ayuda" title="Cerrar ayuda" style="width:34px;height:34px;border-radius:50%;background:#F1F5F9;border:1.5px solid #CBD5E1;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <h4 id="spotlightGuideTitle">Paso a completar</h4>
+        <p id="spotlightGuideText">Aquí debes indicar a quién le vas a transferir.</p>
+        <div class="spotlight-guide-btns">
+          <button type="button" class="btn-pill secondary" id="btnSpotlightPrev" style="min-height:48px;font-size:16px;display:none">
+            Anterior
+          </button>
+          <button type="button" class="btn-spotlight-done" id="btnSpotlightNext" style="min-height:48px;font-size:16px">
+            Siguiente
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= PANEL DEL FACILITADOR (5 TOQUES) ================= -->
+      <div class="facilitator-overlay" id="facilitatorOverlay" role="dialog" aria-modal="true" aria-label="Panel del facilitador para pruebas INACAP">
+        <div class="facilitator-card">
+          <div class="facilitator-header">
+            <h2>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              Panel del Facilitador (INACAP)
+            </h2>
+            <button type="button" class="btn-close-facilitator" id="btnCloseFacilitator" aria-label="Cerrar panel">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- Pestañas del Facilitador -->
+          <div class="facilitator-tabs">
+            <button type="button" class="fac-tab-btn active" data-target="facPaneControls">Controles de Prueba</button>
+            <button type="button" class="fac-tab-btn" data-target="facPaneLogs">Registro CSV</button>
+          </div>
+
+          <div class="facilitator-body">
+            
+            <!-- Panel 1: Controles de la sesión -->
+            <div class="fac-tab-pane active" id="facPaneControls">
+              
+              <div class="fac-control-group">
+                <div class="fac-control-title">Participante en prueba</div>
+                <div class="fac-control-desc">Código anónimo según pauta de investigación (P01 a P08):</div>
+                <select class="fac-participant-select" id="facParticipantSelect">
+                  <option value="P01">Participante P01</option>
+                  <option value="P02">Participante P02</option>
+                  <option value="P03">Participante P03</option>
+                  <option value="P04">Participante P04</option>
+                  <option value="P05">Participante P05</option>
+                  <option value="P06">Participante P06</option>
+                  <option value="P07">Participante P07</option>
+                  <option value="P08">Participante P08</option>
+                </select>
+              </div>
+
+              <!-- Comparación con / sin ayuda -->
+              <div class="fac-control-group">
+                <div class="fac-row">
+                  <div>
+                    <div class="fac-control-title">Interfaz Puente Activa</div>
+                    <div class="fac-control-desc">Desactivar para grupo de control (banca estándar).</div>
+                  </div>
+                  <label class="switch-control" for="facSwitchBridge">
+                    <input type="checkbox" id="facSwitchBridge" checked>
+                    <span class="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Selector A/B de Nombre de Pantalla Final -->
+              <div class="fac-control-group">
+                <div class="fac-control-title">Nombre de la pantalla final (Prueba A/B)</div>
+                <div class="fac-control-desc">Elige qué título mostrará la pantalla de confirmación:</div>
+                <div class="fac-segmented">
+                  <button type="button" class="fac-segmented-btn fac-summary-variant active" data-variant="resumen_seguro">Resumen Seguro</button>
+                  <button type="button" class="fac-segmented-btn fac-summary-variant" data-variant="revisa_antes">Revisa antes de enviar</button>
+                </div>
+              </div>
+
+              <!-- Inyección de Error de Monto ($500.000) -->
+              <div class="fac-control-group" style="border-color:#F59E0B;background:#FFFBEB">
+                <div class="fac-row">
+                  <div>
+                    <div class="fac-control-title" style="color:#B45309">Inyectar error: $500.000</div>
+                    <div class="fac-control-desc" style="color:#92400E">Precarga un cero extra para evaluar si detectan el error en el resumen.</div>
+                  </div>
+                  <label class="switch-control" for="facSwitchError">
+                    <input type="checkbox" id="facSwitchError">
+                    <span class="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Modo Práctica -->
+              <div class="fac-control-group">
+                <div class="fac-row">
+                  <div>
+                    <div class="fac-control-title">Modo Práctica</div>
+                    <div class="fac-control-desc">Muestra banner visible de práctica sin dinero real.</div>
+                  </div>
+                  <label class="switch-control" for="facSwitchPractice">
+                    <input type="checkbox" id="facSwitchPractice">
+                    <span class="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Métricas en vivo de la sesión -->
+              <div class="fac-control-group">
+                <div class="fac-control-title">Métricas de la sesión en curso</div>
+                <div class="fac-metrics-grid">
+                  <div class="fac-metric-box">
+                    <div class="fac-metric-value" id="facMetricTimer">0s</div>
+                    <div class="fac-metric-label">Tiempo total</div>
+                  </div>
+                  <div class="fac-metric-box">
+                    <div class="fac-metric-value" id="facMetricHelp">0</div>
+                    <div class="fac-metric-label">Usos de ayuda</div>
+                  </div>
+                  <div class="fac-metric-box">
+                    <div class="fac-metric-value" id="facMetricErrors">0</div>
+                    <div class="fac-metric-label">Errores</div>
+                  </div>
+                  <div class="fac-metric-box">
+                    <div class="fac-metric-value" id="facMetricCorrected">NO</div>
+                    <div class="fac-metric-label">Corrigió resumen</div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn-fac-action btn-fac-primary" id="btnFacResetSession">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                Reiniciar sesión y bienvenida
+              </button>
+
+            </div>
+
+            <!-- Panel 2: Registro CSV y Resultados -->
+            <div class="fac-tab-pane" id="facPaneLogs">
+              <div class="fac-control-desc">
+                Registro local de sesiones de prueba para los participantes P01 a P08.
+              </div>
+
+              <div class="fac-table-wrap">
+                <table class="fac-table">
+                  <thead>
+                    <tr>
+                      <th>P</th>
+                      <th>Modo</th>
+                      <th>Tiempo</th>
+                      <th>Ayudas</th>
+                      <th>Corrigió</th>
+                      <th>Error $</th>
+                      <th>Resultado</th>
+                    </tr>
+                  </thead>
+                  <tbody id="facTableBody">
+                    <!-- Dinámico -->
+                  </tbody>
+                </table>
+              </div>
+
+              <button type="button" class="btn-fac-action btn-fac-primary" id="btnFacExportCsv">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Descargar registro en CSV (Excel)
+              </button>
+
+              <button type="button" class="btn-fac-action btn-fac-danger" id="btnFacClearLogs">
+                Limpiar historial de pruebas
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts del Prototipo -->
+  <script src="js/speech.js"></script>
+  <script src="js/interfaz-puente.js"></script>
+  <script src="js/facilitator.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Alternancia de pantalla completa en escritorio
+    document.getElementById('btnToggleFullScreen').addEventListener('click', function() {
+      const frame = document.getElementById('appMainContainer');
+      if (!document.fullscreenElement) {
+        if (frame.requestFullscreen) {
+          frame.requestFullscreen();
+        } else if (frame.webkitRequestFullscreen) {
+          frame.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
